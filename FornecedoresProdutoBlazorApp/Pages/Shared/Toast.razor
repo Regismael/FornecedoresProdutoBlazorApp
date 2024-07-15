@@ -1,0 +1,30 @@
+﻿@if (showToast)
+{
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+        <div class="toast-header">
+            <strong class="me-auto">Mensagem</strong>
+            <button type="button" class="btn-close" aria-label="Close" @onclick="FecharToast"></button>
+        </div>
+        <div class="toast-body">
+            @mensagem
+        </div>
+    </div>
+}
+
+@code {
+    private bool showToast = false;
+    private string mensagem = "";
+
+    public void MostrarToast(string mensagem)
+    {
+        this.mensagem = mensagem;
+        showToast = true;
+        StateHasChanged();
+    }
+
+    private void FecharToast()
+    {
+        showToast = false;
+        mensagem = "";
+    }
+}

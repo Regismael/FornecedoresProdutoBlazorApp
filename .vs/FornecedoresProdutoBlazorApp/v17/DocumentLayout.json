@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\aulascsharp\\FornecedoresProdutoBlazorApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B25D173C-72F3-4CE3-BB26-6CB9F14E7E15}|FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp.csproj|c:\\aulascsharp\\fornecedoresprodutoblazorapp\\fornecedoresprodutoblazorapp\\pages\\fornecedor\\criarfornecedor.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B25D173C-72F3-4CE3-BB26-6CB9F14E7E15}|FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp.csproj|solutionrelative:fornecedoresprodutoblazorapp\\pages\\fornecedor\\criarfornecedor.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B25D173C-72F3-4CE3-BB26-6CB9F14E7E15}|FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp.csproj|c:\\aulascsharp\\fornecedoresprodutoblazorapp\\fornecedoresprodutoblazorapp\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B25D173C-72F3-4CE3-BB26-6CB9F14E7E15}|FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp.csproj|solutionrelative:fornecedoresprodutoblazorapp\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B25D173C-72F3-4CE3-BB26-6CB9F14E7E15}|FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp.csproj|c:\\aulascsharp\\fornecedoresprodutoblazorapp\\fornecedoresprodutoblazorapp\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B25D173C-72F3-4CE3-BB26-6CB9F14E7E15}|FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp.csproj|solutionrelative:fornecedoresprodutoblazorapp\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B25D173C-72F3-4CE3-BB26-6CB9F14E7E15}|FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp.csproj|c:\\aulascsharp\\fornecedoresprodutoblazorapp\\fornecedoresprodutoblazorapp\\wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{B25D173C-72F3-4CE3-BB26-6CB9F14E7E15}|FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp.csproj|solutionrelative:fornecedoresprodutoblazorapp\\wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B25D173C-72F3-4CE3-BB26-6CB9F14E7E15}|FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp.csproj|c:\\aulascsharp\\fornecedoresprodutoblazorapp\\fornecedoresprodutoblazorapp\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B25D173C-72F3-4CE3-BB26-6CB9F14E7E15}|FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp.csproj|solutionrelative:fornecedoresprodutoblazorapp\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CriarFornecedor.razor",
+              "DocumentMoniker": "C:\\aulascsharp\\FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp\\Pages\\Fornecedor\\CriarFornecedor.razor",
+              "RelativeDocumentMoniker": "FornecedoresProdutoBlazorApp\\Pages\\Fornecedor\\CriarFornecedor.razor",
+              "ToolTip": "C:\\aulascsharp\\FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp\\Pages\\Fornecedor\\CriarFornecedor.razor",
+              "RelativeToolTip": "FornecedoresProdutoBlazorApp\\Pages\\Fornecedor\\CriarFornecedor.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-15T11:09:20.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "App.razor",
+              "DocumentMoniker": "C:\\aulascsharp\\FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp\\App.razor",
+              "RelativeDocumentMoniker": "FornecedoresProdutoBlazorApp\\App.razor",
+              "ToolTip": "C:\\aulascsharp\\FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp\\App.razor",
+              "RelativeToolTip": "FornecedoresProdutoBlazorApp\\App.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-15T11:04:42.708Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "index.html",
+              "DocumentMoniker": "C:\\aulascsharp\\FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp\\wwwroot\\index.html",
+              "RelativeDocumentMoniker": "FornecedoresProdutoBlazorApp\\wwwroot\\index.html",
+              "ToolTip": "C:\\aulascsharp\\FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp\\wwwroot\\index.html",
+              "RelativeToolTip": "FornecedoresProdutoBlazorApp\\wwwroot\\index.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-07-15T10:56:58.992Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "app.css",
+              "DocumentMoniker": "C:\\aulascsharp\\FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp\\wwwroot\\css\\app.css",
+              "RelativeDocumentMoniker": "FornecedoresProdutoBlazorApp\\wwwroot\\css\\app.css",
+              "ToolTip": "C:\\aulascsharp\\FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp\\wwwroot\\css\\app.css",
+              "RelativeToolTip": "FornecedoresProdutoBlazorApp\\wwwroot\\css\\app.css",
+              "ViewState": "AQIAAFUAAAAAAAAAAAAuwIMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-07-15T10:56:35.662Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\aulascsharp\\FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "FornecedoresProdutoBlazorApp\\Layout\\NavMenu.razor",
+              "ToolTip": "C:\\aulascsharp\\FornecedoresProdutoBlazorApp\\FornecedoresProdutoBlazorApp\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "FornecedoresProdutoBlazorApp\\Layout\\NavMenu.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-15T10:55:23.37Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

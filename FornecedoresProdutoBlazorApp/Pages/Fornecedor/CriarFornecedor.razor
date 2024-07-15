@@ -1,0 +1,75 @@
+﻿@page "/criar-fornecedor"
+@using FornecedoresProdutoBlazorApp.ViewModels.Fornecedor
+@inject FornecedoresProdutoBlazorApp.Services.FornecedorService fornecedorService
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center">
+                    <h2>Cadastrar Fornecedor</h2>
+                    <p>Preencha o formulário abaixo para cadastrar um novo fornecedor.</p>
+                </div>
+                <div class="mb-3 text-center">
+                    <label for="NomeFornecedor">Nome do Fornecedor:</label>
+                    <InputText id="NomeFornecedor" class="form-control form-control-sm" @bind-Value="viewModelCadastrar.NomeFornecedor" />
+             
+                    @if (string.IsNullOrWhiteSpace(viewModelCadastrar.NomeFornecedor))
+                    {
+                        <p class="text-danger">O nome do fornecedor é obrigatório.</p>
+                    }
+                </div>
+                <div class="mb-3 d-grid">
+                    <button type="button" class="btn btn-primary" @onclick="OnSubmit">Cadastrar Fornecedor</button>
+                </div>
+                @if (!string.IsNullOrEmpty(sucessoMensagem))
+                {
+                    <div class="alert alert-success mt-3 text-center">
+                        @sucessoMensagem
+                    </div>
+                }
+                @if (!string.IsNullOrEmpty(erroMensagem))
+                {
+                    <div class="alert alert-danger mt-3 text-center">
+                        @erroMensagem
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private CadastrarFornecedorViewModel viewModelCadastrar = new CadastrarFornecedorViewModel();
+    private string? sucessoMensagem;
+    private string? erroMensagem;
+
+    private async Task OnSubmit()
+    {
+    
+        if (string.IsNullOrWhiteSpace(viewModelCadastrar.NomeFornecedor))
+        {
+            erroMensagem = "O preenchimento nome do fornecedor é obrigatório.";
+            sucessoMensagem = null;
+            return;
+        }
+
+        try
+        {
+            await fornecedorService.CadastrarFornecedorAsync(viewModelCadastrar);
+            sucessoMensagem = "Fornecedor cadastrado com sucesso!";
+            erroMensagem = null;
+            viewModelCadastrar = new CadastrarFornecedorViewModel();
+        }
+        catch (HttpRequestException ex)
+        {
+            erroMensagem = $"Erro de requisição HTTP ao cadastrar fornecedor: {ex.Message}";
+            sucessoMensagem = null;
+        }
+        catch (Exception ex)
+        {
+            erroMensagem = $"Erro ao cadastrar fornecedor: {ex.Message}";
+            sucessoMensagem = null;
+        }
+    }
+}

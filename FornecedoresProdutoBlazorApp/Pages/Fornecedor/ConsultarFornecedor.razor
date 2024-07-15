@@ -1,0 +1,143 @@
+﻿@page "/consulta-fornecedor"
+@using FornecedoresProdutoBlazorApp.ViewModels.Fornecedor
+@using FornecedoresProdutoBlazorApp.Services
+@inject FornecedorService fornecedorService
+@using Microsoft.AspNetCore.Components.Forms
+@using FornecedoresProdutoBlazorApp.Pages.Shared
+
+<h3>FORNECEDORES PARCEIROS</h3>
+
+<p>Abaixo, estão todos os fornecedores cadastrados:</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>ID</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (viewModel.Count > 0)
+        {
+            @foreach (var fornecedor in viewModel)
+            {
+                <tr>
+                    <td>@fornecedor.NomeFornecedor</td>
+                    <td>@fornecedor.IdFornecedor</td>
+                    <td>
+                        <button class="btn btn-warning" @onclick="() => AbrirModalEditar(fornecedor)">Editar</button>
+                        <button class="btn btn-danger ms-2" @onclick="() => ConfirmarExclusao(fornecedor)">Excluir</button>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3">Nenhum fornecedor encontrado.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (fornecedorSelecionado != null)
+{
+    <div class="modal fade show" style="display: block;" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Fornecedor</h5>
+                    <button type="button" class="btn-close" @onclick="FecharModalEditar" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="@fornecedorSelecionado">
+                        <div class="mb-3">
+                            <label for="editNomeFornecedor" class="form-label">Nome do Fornecedor:</label>
+                            <InputText id="editNomeFornecedor" class="form-control" @bind-Value="@fornecedorSelecionado.NomeFornecedor" />
+                        </div>
+                    </EditForm>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="FecharModalEditar">Fechar</button>
+                    <button type="button" class="btn btn-primary" @onclick="EditarFornecedor">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (confirmarExclusao)
+{
+    <div class="modal fade show" style="display: block;" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close" @onclick="CancelarExclusao" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir o fornecedor selecionado?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CancelarExclusao">Cancelar</button>
+                    <button type="button" class="btn btn-danger" @onclick="ExcluirFornecedorConfirmado">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<Toast @ref="toastRef" />
+
+@code {
+    private List<ConsultarFornecedorViewModel> viewModel = new List<ConsultarFornecedorViewModel>();
+    private ConsultarFornecedorViewModel fornecedorSelecionado;
+    private bool confirmarExclusao = false;
+    private Toast toastRef;
+
+    protected override async Task OnInitializedAsync()
+    {
+        viewModel = await fornecedorService.BuscarFornecedoresAsync();
+    }
+
+    private void AbrirModalEditar(ConsultarFornecedorViewModel fornecedor)
+    {
+        fornecedorSelecionado = fornecedor;
+    }
+
+    private void FecharModalEditar()
+    {
+        fornecedorSelecionado = null;
+    }
+
+    private async Task EditarFornecedor()
+    {
+        await fornecedorService.EditarFornecedorAsync(fornecedorSelecionado);
+        viewModel = await fornecedorService.BuscarFornecedoresAsync();
+        toastRef.MostrarToast("Fornecedor atualizado com sucesso!");
+        FecharModalEditar();
+    }
+
+    private void ConfirmarExclusao(ConsultarFornecedorViewModel fornecedor)
+    {
+        fornecedorSelecionado = fornecedor;
+        confirmarExclusao = true;
+    }
+
+    private void CancelarExclusao()
+    {
+        confirmarExclusao = false;
+    }
+
+    private async Task ExcluirFornecedorConfirmado()
+    {
+        if (fornecedorSelecionado != null)
+        {
+            await fornecedorService.ExcluirFornecedorAsync(fornecedorSelecionado.IdFornecedor);
+            viewModel = await fornecedorService.BuscarFornecedoresAsync();
+            toastRef.MostrarToast("Fornecedor excluído com sucesso!");
+            confirmarExclusao = false;
+        }
+    }
+}

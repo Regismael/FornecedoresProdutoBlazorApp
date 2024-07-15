@@ -1,0 +1,89 @@
+﻿@page "/criar-produto"
+@using FornecedoresProdutoBlazorApp.ViewModels.Fornecedor
+@using FornecedoresProdutoBlazorApp.ViewModels.Produto
+@inject Services.ProdutoService produtoService
+@inject NavigationManager NavigationManager
+
+<h3>Criar Produto</h3>
+
+<div class="mb-3">
+    <label for="NomeProduto" class="form-label">Nome do Produto:</label>
+    <InputText id="NomeProduto" class="form-control" @bind-Value="@viewModelCadastrar.NomeProduto" />
+
+    @if (string.IsNullOrWhiteSpace(viewModelCadastrar.NomeProduto))
+    {
+        <p class="text-danger">O preenchimento nome do produto é obrigatório.</p>
+    }
+</div>
+<div class="mb-3">
+    <label for="Preco" class="form-label">Preço:</label>
+    <InputNumber id="Preco" class="form-control" @bind-Value="@viewModelCadastrar.Preco" />
+
+    @if (viewModelCadastrar.Preco <= 0)
+    {
+        <p class="text-danger">O preço deve ser maior que zero.</p>
+    }
+</div>
+<div class="mb-3">
+    <label for="Quantidade" class="form-label">Quantidade:</label>
+    <InputNumber id="Quantidade" class="form-control" @bind-Value="@viewModelCadastrar.Quantidade" />
+
+    @if (viewModelCadastrar.Quantidade <= 0)
+    {
+        <p class="text-danger">A quantidade deve ser maior que zero.</p>
+    }
+</div>
+<div class="mb-3">
+    <label for="IdFornecedor" class="form-label">Fornecedor:</label>
+    <select id="IdFornecedor" class="form-select" @bind="@viewModelCadastrar.IdFornecedor">
+        <option value="">Selecione um fornecedor</option>
+        @if (fornecedores != null && fornecedores.Any())
+        {
+            @foreach (var fornecedor in fornecedores.SelectMany(vm => vm.Fornecedores))
+            {
+                <option value="@fornecedor.IdFornecedor">@fornecedor.NomeFornecedor</option>
+            }
+        }
+        else
+        {
+            <option value="" disabled>Nenhum fornecedor encontrado</option>
+        }
+    </select>
+
+    @if (viewModelCadastrar.IdFornecedor == Guid.Empty)
+    {
+        <p class="text-danger">Selecione um fornecedor.</p>
+    }
+</div>
+<button type="submit" class="btn btn-primary" @onclick="OnSubmit">Salvar</button>
+
+@code {
+    private CadastrarProdutoViewModel viewModelCadastrar = new CadastrarProdutoViewModel();
+    private List<ListarFornecedoresViewModel> fornecedores;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CarregarFornecedores();
+    }
+
+    private async Task CarregarFornecedores()
+    {
+        fornecedores = await produtoService.BuscarFornecedoresAsync();
+    }
+
+    private async Task OnSubmit()
+    {
+
+        if (string.IsNullOrWhiteSpace(viewModelCadastrar.NomeProduto)
+            || viewModelCadastrar.Preco <= 0
+            || viewModelCadastrar.Quantidade <= 0
+            || viewModelCadastrar.IdFornecedor == Guid.Empty)
+        {
+
+            return;
+        }
+
+        await produtoService.CadastrarProdutoAsync(viewModelCadastrar);
+        NavigationManager.NavigateTo("/consulta-produto");
+    }
+}

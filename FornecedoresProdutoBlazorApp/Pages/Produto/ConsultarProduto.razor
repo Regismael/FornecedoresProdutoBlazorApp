@@ -1,0 +1,194 @@
+﻿@page "/consulta-produto"
+@using FornecedoresProdutoBlazorApp.ViewModels.Produto
+@using FornecedoresProdutoBlazorApp.Services
+@inject ProdutoService produtoService
+@inject FornecedoresProdutoBlazorApp.Pages.Shared.ProdutoToastService produtoToast
+
+<h3>PRODUTOS ISMAEL'S SHOP</h3>
+
+<p>Abaixo estão todos os produtos cadastrados:</p>
+
+@if (produtos == null)
+{
+    <p><em>Carregando...</em></p>
+}
+else if (produtos.Count == 0)
+{
+    <p><em>Nenhum produto encontrado.</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome do Produto</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Nome do Fornecedor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var produto in produtos)
+            {
+                <tr>
+                    <td>@produto.NomeProduto</td>
+                    <td>@produto.Preco</td>
+                    <td>@produto.Quantidade</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(produto.NomeFornecedor))
+                        {
+                            <span>@produto.NomeFornecedor</span>
+                        }
+                        else
+                        {
+                            <button class="btn btn-primary" @onclick="() => VerFornecedor(produto)">Ver Fornecedor</button>
+                        }
+                    </td>
+                    <td>
+                        <button class="btn btn-warning" @onclick="() => AbrirModalEditar(produto)">Editar</button>
+                        <button class="btn btn-danger ms-2" @onclick="() => ConfirmarExclusao(produto)">Excluir</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="modal fade @(_modalEditar ? "show" : "")" style="display: @(_modalEditar ? "block" : "none")" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Produto</h5>
+                <button type="button" class="btn-close" @onclick="FecharModalEditar" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if (produtoSelecionado != null)
+                {
+                    <EditForm Model="@produtoSelecionado" OnValidSubmit="EditarProduto">
+                        <div class="mb-3">
+                            <label for="editNomeProduto" class="form-label">Nome do Produto:</label>
+                            <InputText id="editNomeProduto" class="form-control" @bind-Value="@produtoSelecionado.NomeProduto" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPreco" class="form-label">Preço:</label>
+                            <InputNumber TValue="decimal?" id="editPreco" class="form-control" @bind-Value="@produtoSelecionado.Preco" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="editQuantidade" class="form-label">Quantidade:</label>
+                            <InputNumber TValue="int?" id="editQuantidade" class="form-control" @bind-Value="@produtoSelecionado.Quantidade" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </EditForm>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @onclick="FecharModalEditar">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (_confirmarExclusao)
+{
+    <div class="modal fade show" style="display: block;" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close" @onclick="CancelarExclusao" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir o produto selecionado?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CancelarExclusao">Cancelar</button>
+                    <button type="button" class="btn btn-danger" @onclick="ExcluirProdutoConfirmado">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<ConsultarProdutoViewModel> produtos;
+    private EditarProdutoViewModel produtoSelecionado;
+    private bool _modalEditar = false;
+    private bool _confirmarExclusao = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await AtualizarListaProdutos();
+    }
+
+    private async Task AtualizarListaProdutos()
+    {
+        produtos = await produtoService.BuscarProdutosAsync();
+    }
+
+    private async Task VerFornecedor(ConsultarProdutoViewModel produto)
+    {
+        var fornecedorInfo = await produtoService.BuscarNomeFornecedorAsync(produto.IdFornecedor.Value);
+        produto.NomeFornecedor = fornecedorInfo ?? "Não encontrado";
+    }
+
+    private void AbrirModalEditar(ConsultarProdutoViewModel produto)
+    {
+        produtoSelecionado = new EditarProdutoViewModel
+            {
+                IdProduto = produto.IdProduto ?? Guid.Empty,
+                NomeProduto = produto.NomeProduto,
+                Preco = produto.Preco,
+                Quantidade = produto.Quantidade,
+                IdFornecedor = produto.IdFornecedor,
+                NomeFornecedor = produto.NomeFornecedor
+            };
+        _modalEditar = true;
+    }
+
+    private void FecharModalEditar()
+    {
+        _modalEditar = false;
+    }
+
+    private async Task EditarProduto()
+    {
+        if (produtoSelecionado != null)
+        {
+            await produtoService.EditarProdutoAsync(produtoSelecionado);
+            await AtualizarListaProdutos();
+            produtoToast.MostrarToast("Produto atualizado com sucesso!");
+            FecharModalEditar();
+        }
+    }
+
+    private void ConfirmarExclusao(ConsultarProdutoViewModel produto)
+    {
+        produtoSelecionado = new EditarProdutoViewModel
+            {
+                IdProduto = produto.IdProduto ?? Guid.Empty,
+                NomeProduto = produto.NomeProduto,
+                Preco = produto.Preco,
+                Quantidade = produto.Quantidade,
+                IdFornecedor = produto.IdFornecedor,
+                NomeFornecedor = produto.NomeFornecedor
+            };
+        _confirmarExclusao = true;
+    }
+
+    private void CancelarExclusao()
+    {
+        _confirmarExclusao = false;
+    }
+
+    private async Task ExcluirProdutoConfirmado()
+    {
+        if (produtoSelecionado != null && produtoSelecionado.IdProduto != Guid.Empty)
+        {
+            await produtoService.ExcluirProdutoAsync(produtoSelecionado.IdProduto);
+            await AtualizarListaProdutos();
+            produtoToast.MostrarToast("Produto excluído com sucesso!");
+            _confirmarExclusao = false;
+        }
+    }
+}
